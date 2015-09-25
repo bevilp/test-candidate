@@ -1,12 +1,13 @@
 package com.test.candidate.service;
 
-import org.springframework.stereotype.Component;
+import com.test.candidate.persistence.entity.Candidate;
+
+import java.util.List;
 
 /**
  * Created by oleg on 12/08/15.
  */
-@Component
-//TODO
-public class CandidateService {
+public interface CandidateService {
 
+    List<Candidate> getAllCandidates();
 }
