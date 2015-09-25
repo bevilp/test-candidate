@@ -30,6 +30,7 @@ dependencies {
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.2'
 
     compile group:'org.springframework.boot', name:'spring-boot-starter-data-jpa', version:"$springBootStarterVersion"
+    compile group:'org.hibernate', name:'hibernate-validator'
     compile group:'com.h2database', name:'h2', version: '1.4.187'
 
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootStarterVersion"
