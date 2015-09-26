@@ -3,9 +3,11 @@ package com.test.candidate.service.controller;
 import com.test.candidate.service.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -73,6 +75,18 @@ public class ControllerExceptionHandlerAdvice {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return errorResponse;
+    }
+
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void httpMessageNotReadableException(HttpMessageNotReadableException e) {
+        LOG.debug("Malformed request", e);
+    }
+
+    @ExceptionHandler({TypeMismatchException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void typeMismatchException(TypeMismatchException e) {
+        LOG.debug("Malformed request", e);
     }
 
     @ExceptionHandler(Exception.class)
