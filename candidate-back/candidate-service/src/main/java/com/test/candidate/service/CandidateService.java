@@ -23,7 +23,7 @@ public interface CandidateService {
      * @param candidateForm
      * @return
      */
-    CandidateDto updateCandidate(int id, CandidateForm candidateForm);
+    CandidateDto updateCandidate(int id, CandidateForm candidateForm) throws EntityNotFoundException;
 
     /**
      * Create a new candidate

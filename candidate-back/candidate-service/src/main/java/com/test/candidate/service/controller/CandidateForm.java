@@ -1,0 +1,35 @@
+package com.test.candidate.service.controller;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+/**
+ * candidate
+ *
+ * @author Ben
+ * @since 26/09/2015
+ */
+public class CandidateForm {
+
+    @NotNull
+    @Size(max = 30)
+    private String name;
+
+    private boolean enabled;
+
+    public CandidateForm() {
+    }
+
+    public CandidateForm(String name, boolean enabled) {
+        this.name = name;
+        this.enabled = enabled;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+}

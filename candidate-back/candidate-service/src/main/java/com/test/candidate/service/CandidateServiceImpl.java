@@ -42,11 +42,11 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateDto updateCandidate(int id, @NotNull CandidateForm candidateForm) {
+    public CandidateDto updateCandidate(int id, @NotNull CandidateForm candidateForm) throws EntityNotFoundException {
         Assert.notNull(candidateForm);
         Candidate candidate = candidateRepository.findOne(id);
         if (candidate == null) {
-            //TODO throw exception
+            throw new EntityNotFoundException("Could not find candidate with id["+id+"]");
         }
 
         candidate.setName(candidateForm.getName());
