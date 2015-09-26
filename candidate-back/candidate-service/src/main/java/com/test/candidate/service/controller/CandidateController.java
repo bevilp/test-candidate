@@ -60,4 +60,26 @@ public class CandidateController {
     public CandidateDto createCandidate(@RequestBody @Valid CandidateForm candidateForm) {
         return candidateService.createCandidate(candidateForm);
     }
+
+    /**
+     * Delete a list of candidates
+     *
+     * @param candidateList candidate Ids to delete
+     */
+    @RequestMapping(method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCandidates(@RequestBody @Valid CandidatesToDeleteList candidateList) {
+        candidateService.deleteCandidates(candidateList.getIds());
+    }
+
+    /**
+     * Delete a candidate by id
+     *
+     * @param id of the candidate to delete
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCandidate(@PathVariable("id") int id) {
+        candidateService.deleteCandidate(id);
+    }
 }
