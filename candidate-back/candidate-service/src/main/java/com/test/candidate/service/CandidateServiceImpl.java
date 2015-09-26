@@ -7,6 +7,7 @@ import com.test.candidate.service.controller.CandidateForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -81,9 +82,12 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public void deleteCandidate(int id) {
-        //TODO non-existing candidate id not handled
+    public void deleteCandidate(int id) throws EntityNotFoundException {
         LOG.info("deleting candidate with id[{}]", id);
-        candidateRepository.delete(id);
+        try {
+            candidateRepository.delete(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException("Candidate with id[" + id + "] not found. Could not delete.");
+        }
     }
 }

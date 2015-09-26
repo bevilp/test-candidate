@@ -47,5 +47,5 @@ public interface CandidateService {
      *
      * @param id of the candidate to delete
      */
-    void deleteCandidate(int id);
+    void deleteCandidate(int id) throws EntityNotFoundException;
 }

@@ -79,7 +79,7 @@ public class CandidateController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCandidate(@PathVariable("id") int id) {
+    public void deleteCandidate(@PathVariable("id") int id) throws EntityNotFoundException {
         candidateService.deleteCandidate(id);
     }
 }
