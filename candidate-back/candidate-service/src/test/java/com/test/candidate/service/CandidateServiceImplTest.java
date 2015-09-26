@@ -29,6 +29,7 @@ public class CandidateServiceImplTest {
     private CandidateRepository candidateRepository;
 
     private final List<Candidate> candidates = new ArrayList<>();
+
     {
         candidates.add(new Candidate("john", true));
         candidates.add(new Candidate("alex", true));
@@ -40,10 +41,9 @@ public class CandidateServiceImplTest {
         // we expect the repository to be called and to return the candidates list
         Mockito.when(candidateRepository.findAll()).thenReturn(candidates);
 
-        List<Candidate> candidates = candidateService.getAllCandidates();
+        List<CandidateDto> candidates = candidateService.getAllCandidates();
 
         Assert.assertNotNull(candidates);
         Assert.assertEquals(3, candidates.size());
     }
-
 }

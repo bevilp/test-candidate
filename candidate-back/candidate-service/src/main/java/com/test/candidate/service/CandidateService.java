@@ -1,7 +1,5 @@
 package com.test.candidate.service;
 
-import com.test.candidate.persistence.entity.Candidate;
-
 import java.util.List;
 
 /**
@@ -9,5 +7,5 @@ import java.util.List;
  */
 public interface CandidateService {
 
-    List<Candidate> getAllCandidates();
+    List<CandidateDto> getAllCandidates();
 }

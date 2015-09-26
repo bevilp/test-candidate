@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * CandidateServiceImpl
@@ -18,6 +20,9 @@ import java.util.List;
 @Transactional
 public class CandidateServiceImpl implements CandidateService {
 
+    private static final Function<Candidate, CandidateDto> CANDIDATE_TO_CANDIDATE_VO_MAPPER =
+            candidate -> new CandidateDto(candidate.getId(), candidate.getName(), candidate.isEnabled());
+
     private final CandidateRepository candidateRepository;
 
     @Autowired
@@ -26,7 +31,10 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<Candidate> getAllCandidates() {
-        return candidateRepository.findAll();
+    public List<CandidateDto> getAllCandidates() {
+        return candidateRepository.findAll()
+                .stream()
+                .map(CANDIDATE_TO_CANDIDATE_VO_MAPPER)
+                .collect(Collectors.toList());
     }
 }
