@@ -66,23 +66,6 @@ public class CandidateAppIntegrationTest {
     }
 
     @Test
-    public void updateCandidateTest() throws Exception {
-        mockMvc.perform(put("/candidate/1")
-                .contentType(APPLICATION_JSON_UTF8)
-                .content("{\"name\": \"john the new\",\"enabled\": true}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is("john the new")));
-    }
-
-    @Test
-    public void updateCandidateNotFoundTest() throws Exception {
-        mockMvc.perform(put("/candidate/10")
-                .contentType(APPLICATION_JSON_UTF8)
-                .content("{\"name\": \"john\",\"enabled\": true}"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
     public void createCandidateNameTooLongTest() throws Exception {
         final String tooLongName = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         mockMvc.perform(post("/candidate")
@@ -117,6 +100,72 @@ public class CandidateAppIntegrationTest {
     }
 
     @Test
+    public void createCandidateMalformedRequestTest() throws Exception {
+        mockMvc.perform(post("/candidate")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"name\":"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void updateCandidateTest() throws Exception {
+        mockMvc.perform(put("/candidate/1")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"name\": \"john the new\",\"enabled\": true}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("john the new")));
+    }
+
+    @Test
+    public void updateCandidateNameTooLongTest() throws Exception {
+        final String tooLongName = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        mockMvc.perform(put("/candidate/1")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"name\": \"" + tooLongName + "\",\"enable\": true}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors[0].field", is("name")))
+                .andExpect(jsonPath("$.fieldErrors[0].code", is("Size")))
+                .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is(tooLongName)));
+    }
+
+    @Test
+    public void updateCandidateNotFoundTest() throws Exception {
+        mockMvc.perform(put("/candidate/10")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"name\": \"john\",\"enabled\": true}"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void updateCandidateNameNullTest() throws Exception {
+        mockMvc.perform(put("/candidate/1")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"enabled\": true}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors[0].field", is("name")))
+                .andExpect(jsonPath("$.fieldErrors[0].code", is("NotNull")))
+                .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is("null")));
+    }
+
+    @Test
+    public void updateCandidateEmptyNameTest() throws Exception {
+        mockMvc.perform(put("/candidate/1")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"name\": \"\",\"enable\": true}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors[0].field", is("name")))
+                .andExpect(jsonPath("$.fieldErrors[0].code", is("Size")))
+                .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is("")));
+    }
+
+    @Test
+    public void updateCandidateWrongUrlTest() throws Exception {
+        mockMvc.perform(put("/candidate/xyz")
+                .contentType(APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void deleteCandidatesTest() throws Exception {
         mockMvc.perform(delete("/candidate")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -126,6 +175,73 @@ public class CandidateAppIntegrationTest {
         mockMvc.perform(get("/candidate"))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(status().isOk());
+    }
 
+    @Test
+    public void deleteEmptyCandidatesListTest() throws Exception {
+        mockMvc.perform(delete("/candidate")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"ids\":[]}"))
+                .andExpect(status().isNoContent());
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteCandidatesBadArgumentsTest() throws Exception {
+        mockMvc.perform(delete("/candidate")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"foo\":\"bar\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors[0].field", is("ids")))
+                .andExpect(jsonPath("$.fieldErrors[0].code", is("NotNull")))
+                .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is("null")));
+    }
+
+    @Test
+    public void deleteCandidatesMalformedRequestTest() throws Exception {
+        mockMvc.perform(delete("/candidate")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"id\""))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void deleteUnknownCandidatesTest() throws Exception {
+        mockMvc.perform(delete("/candidate")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"ids\":[10,20]}"))
+                .andExpect(status().isNoContent());
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteCandidateTest() throws Exception {
+        mockMvc.perform(delete("/candidate/1")
+                .contentType(APPLICATION_JSON_UTF8))
+                .andExpect(status().isNoContent());
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteCandidateWrongUrlTest() throws Exception {
+        mockMvc.perform(delete("/candidate/xyz")
+                .contentType(APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void deleteUnknownCandidateTest() throws Exception {
+        mockMvc.perform(delete("/candidate/10")
+                .contentType(APPLICATION_JSON_UTF8))
+                .andExpect(status().isNotFound());
     }
 }
