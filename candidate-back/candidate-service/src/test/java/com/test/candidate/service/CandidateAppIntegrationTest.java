@@ -95,6 +95,17 @@ public class CandidateAppIntegrationTest {
     }
 
     @Test
+    public void createCandidateEmptyNameTest() throws Exception {
+        mockMvc.perform(post("/candidate")
+                .contentType(APPLICATION_JSON_UTF8)
+                .content("{\"name\": \"\",\"enable\": true}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fieldErrors[0].field", is("name")))
+                .andExpect(jsonPath("$.fieldErrors[0].code", is("Size")))
+                .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is("")));
+    }
+
+    @Test
     public void createCandidateNameNullTest() throws Exception {
         mockMvc.perform(post("/candidate")
                 .contentType(APPLICATION_JSON_UTF8)
