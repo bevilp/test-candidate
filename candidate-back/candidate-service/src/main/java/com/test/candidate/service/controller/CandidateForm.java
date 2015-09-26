@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * candidate
+ * CandidateForm
  *
  * @author Ben
  * @since 26/09/2015
@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class CandidateForm {
 
     @NotNull
-    @Size(max = 30)
+    @Size(min = 1, max = 30)
     private String name;
 
     private boolean enabled;
