@@ -42,5 +42,13 @@ public class Candidate implements Serializable {
     public boolean isEnabled() {
         return enabled;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }
 
