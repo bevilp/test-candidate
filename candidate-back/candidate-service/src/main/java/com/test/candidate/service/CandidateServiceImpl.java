@@ -63,4 +63,10 @@ public class CandidateServiceImpl implements CandidateService {
         candidate = candidateRepository.save(candidate);
         return CANDIDATE_TO_CANDIDATE_VO_MAPPER.apply(candidate);
     }
+
+    @Override
+    public void deleteCandidates(List<Integer> candidateIds) {
+        List<Candidate> candidatesToDelete = candidateRepository.findAll(candidateIds);
+        candidateRepository.delete(candidatesToDelete);
+    }
 }

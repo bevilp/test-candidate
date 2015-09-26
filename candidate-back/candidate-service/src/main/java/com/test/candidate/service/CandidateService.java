@@ -33,4 +33,12 @@ public interface CandidateService {
      * @return created candidate
      */
     CandidateDto createCandidate(CandidateForm candidateForm);
+
+    /**
+     * Delete a list of candidates with the specified ids.
+     * Unknown Ids areignored.
+     *
+     * @param candidateIds list of candidate ids to delete
+     */
+    void deleteCandidates(List<Integer> candidateIds);
 }
