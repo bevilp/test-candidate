@@ -36,9 +36,16 @@ public interface CandidateService {
 
     /**
      * Delete a list of candidates with the specified ids.
-     * Unknown Ids areignored.
+     * Unknown Ids are ignored.
      *
      * @param candidateIds list of candidate ids to delete
      */
     void deleteCandidates(List<Integer> candidateIds);
+
+    /**
+     * Delete a candidate by id
+     *
+     * @param id of the candidate to delete
+     */
+    void deleteCandidate(int id);
 }

@@ -69,4 +69,9 @@ public class CandidateServiceImpl implements CandidateService {
         List<Candidate> candidatesToDelete = candidateRepository.findAll(candidateIds);
         candidateRepository.delete(candidatesToDelete);
     }
+
+    @Override
+    public void deleteCandidate(int id) {
+        candidateRepository.delete(id);
+    }
 }
