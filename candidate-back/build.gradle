@@ -1,4 +1,4 @@
-ext.springBootStarterVersion = '1.2.5.RELEASE'
+ext.springBootStarterVersion = '1.2.6.RELEASE'
 allprojects {
     group = 'com.test'
     version = '1.0-SNAPSHOT'
