@@ -1,5 +1,6 @@
 package com.test.candidate.service;
 
+import com.google.common.collect.ImmutableList;
 import com.test.candidate.persistence.entity.Candidate;
 import com.test.candidate.persistence.repository.CandidateRepository;
 import com.test.candidate.service.controller.CandidateForm;
@@ -35,10 +36,10 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public List<CandidateDto> getAllCandidates() {
-        return candidateRepository.findAll()
+        return ImmutableList.copyOf(candidateRepository.findAll()
                 .stream()
                 .map(CANDIDATE_TO_CANDIDATE_VO_MAPPER)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class CandidateServiceImpl implements CandidateService {
         Assert.notNull(candidateForm);
         Candidate candidate = candidateRepository.findOne(id);
         if (candidate == null) {
-            throw new EntityNotFoundException("Could not find candidate with id["+id+"]");
+            throw new EntityNotFoundException("Could not find candidate with id[" + id + "]");
         }
 
         candidate.setName(candidateForm.getName());
