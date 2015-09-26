@@ -40,7 +40,7 @@ public class ControllerExceptionHandlerAdvice {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public EntityNotFoundException entityNotFoundExceptionHandler(EntityNotFoundException e) {
-        LOG.error("Could not find entity", e);
+        LOG.debug("Could not find entity", e);
         return e;
     }
 
@@ -56,6 +56,7 @@ public class ControllerExceptionHandlerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     protected ErrorResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        // Could have lots of these errors. No need to log them at another level than debug.
         LOG.debug("invalid argument", e);
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors()
                 .stream()
@@ -77,6 +78,7 @@ public class ControllerExceptionHandlerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Exception exceptionHandler(Exception e) {
+        // unexpected error!
         LOG.error("", e);
         return e;
     }
