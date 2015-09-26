@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 
 /**
  * ExceptionHandlerAdvice
+ * <p>
+ * All exception handling advices for controllers
  *
  * @author Ben
  * @since 26/09/2015
@@ -22,19 +24,40 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ControllerExceptionHandlerAdvice {
 
+    /**
+     * Handle all EntityNotFoundException exceptions.
+     * <p>
+     * Does not do anything apart from returning a HTTP 404 error
+     *
+     * @param e
+     * @return
+     */
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public EntityNotFoundException entityNotFoundExceptionHandler(EntityNotFoundException e) {
         return e;
     }
 
+    /**
+     * Handle all controller input validation errors
+     * <p>
+     * will return a HTTP 400 with a response body containing a {@link com.test.candidate.service.controller.ControllerExceptionHandlerAdvice.ErrorResponse}
+     *
+     * @param e
+     * @return
+     */
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     protected ErrorResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors()
                 .stream()
-                .map(fieldError -> new FieldError(fieldError.getObjectName(), fieldError.getCode(), fieldError.getField(), String.valueOf(fieldError.getRejectedValue())))
+                .map(fieldError -> new FieldError.Builder()
+                        .code(fieldError.getCode())
+                        .field(fieldError.getField())
+                        .rejectedValue(String.valueOf(fieldError.getRejectedValue()))
+                        .resource(fieldError.getObjectName())
+                        .build())
                 .collect(Collectors.toList());
 
         ErrorResponse errorResponse = new ErrorResponse(e.getClass().getTypeName(), e.getMessage(), fieldErrors);
@@ -77,7 +100,42 @@ public class ControllerExceptionHandlerAdvice {
         }
     }
 
-    private class FieldError {
+    private static class FieldError {
+
+        static class Builder {
+
+            private String resource;
+
+            private String field;
+
+            private String code;
+
+            private String rejectedValue;
+
+            public Builder resource(String resource) {
+                this.resource = resource;
+                return this;
+            }
+
+            public Builder field(String field) {
+                this.field = field;
+                return this;
+            }
+
+            public Builder code(String code) {
+                this.code = code;
+                return this;
+            }
+
+            public Builder rejectedValue(String rejectedValue) {
+                this.rejectedValue = rejectedValue;
+                return this;
+            }
+
+            public FieldError build() {
+                return new FieldError(resource, field, code, rejectedValue);
+            }
+        }
 
         private final String resource;
 
@@ -87,7 +145,7 @@ public class ControllerExceptionHandlerAdvice {
 
         private final String rejectedValue;
 
-        public FieldError(String resource, String field, String code, String rejectedValue) {
+        private FieldError(String resource, String field, String code, String rejectedValue) {
             this.resource = resource;
             this.field = field;
             this.code = code;
