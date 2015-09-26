@@ -1,6 +1,8 @@
 package com.test.candidate.service.controller;
 
 import com.test.candidate.service.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +26,9 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ControllerExceptionHandlerAdvice {
 
+    private static final Logger LOG = LoggerFactory
+            .getLogger(ControllerExceptionHandlerAdvice.class);
+
     /**
      * Handle all EntityNotFoundException exceptions.
      * <p>
@@ -35,6 +40,7 @@ public class ControllerExceptionHandlerAdvice {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public EntityNotFoundException entityNotFoundExceptionHandler(EntityNotFoundException e) {
+        LOG.error("Could not find entity", e);
         return e;
     }
 
@@ -50,6 +56,7 @@ public class ControllerExceptionHandlerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     protected ErrorResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        LOG.debug("invalid argument", e);
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors()
                 .stream()
                 .map(fieldError -> new FieldError.Builder()
@@ -70,6 +77,7 @@ public class ControllerExceptionHandlerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Exception exceptionHandler(Exception e) {
+        LOG.error("", e);
         return e;
     }
 
