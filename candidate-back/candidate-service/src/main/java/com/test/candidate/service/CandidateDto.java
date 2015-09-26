@@ -1,7 +1,5 @@
 package com.test.candidate.service;
 
-import javax.validation.constraints.Size;
-
 /**
  * CandidateDto
  *
@@ -12,7 +10,6 @@ public class CandidateDto {
 
     private final int id;
 
-    @Size(max = 30)
     private final String name;
 
     private final boolean enabled;
