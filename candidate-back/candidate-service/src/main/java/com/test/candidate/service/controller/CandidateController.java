@@ -62,7 +62,7 @@ public class CandidateController {
     }
 
     /**
-     * Delete a list of candidates
+     * Delete a list of candidates by id
      *
      * @param candidateList candidate Ids to delete
      */
