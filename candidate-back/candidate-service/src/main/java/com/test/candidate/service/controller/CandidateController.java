@@ -44,7 +44,9 @@ public class CandidateController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public CandidateDto updateCandidate(@PathVariable("id") int id, @RequestBody @Valid CandidateForm candidateForm) throws EntityNotFoundException {
+    public CandidateDto updateCandidate(@PathVariable("id") int id,
+                                        @RequestBody @Valid CandidateForm candidateForm)
+            throws EntityNotFoundException {
         return candidateService.updateCandidate(id, candidateForm);
     }
 
