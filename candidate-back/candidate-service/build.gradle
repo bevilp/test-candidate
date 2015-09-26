@@ -30,6 +30,8 @@ dependencies {
 
     compile group: 'org.springframework.boot', name:'spring-boot-starter-web',version:"$springBootStarterVersion"
 
+    compile group:'com.google.guava', name:'guava', version:'18.0'
+
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootStarterVersion"
     testCompile "com.jayway.jsonpath:json-path:0.8.1"
 }
