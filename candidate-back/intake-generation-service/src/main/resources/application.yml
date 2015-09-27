@@ -1,3 +1,11 @@
+spring:
+  application:
+     name: candidate-intake-generation-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
 server:
-        contextPath: /intake-generation-service
-        port: 8100
+  contextPath: /intake-generation-service
+  port: 8100
