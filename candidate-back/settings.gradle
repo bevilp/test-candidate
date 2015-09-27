@@ -2,4 +2,5 @@ rootProject.name = 'candidate'
 include 'candidate-service'
 include 'candidate-persistence'
 include 'intake-generation-service'
+include 'service-registration-server'
 
