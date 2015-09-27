@@ -59,10 +59,10 @@ public class CandidateServiceImplTest {
     @Test
     public void insertCandidateTest() {
         when(candidateRepository.save(any(Candidate.class))).thenReturn(new Candidate("Ben", false));
-        verify(intakeGenerationNotificationService).notify(anyInt());
 
         CandidateDto candidateDto = candidateService.createCandidate(new CandidateForm("Ben", false));
 
+        verify(intakeGenerationNotificationService).notify(anyInt());
         assertNotNull(candidateDto);
         assertEquals("Ben", candidateDto.getName());
         assertFalse(candidateDto.isEnabled());
