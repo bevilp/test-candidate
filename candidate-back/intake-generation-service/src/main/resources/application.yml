@@ -1,0 +1,3 @@
+server:
+        contextPath: /intake-generation-service
+        port: 8100
