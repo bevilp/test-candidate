@@ -82,7 +82,6 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public void deleteCandidates(List<Integer> candidateIds) {
-        //TODO this could be much better... For now we ignore unknown ids but that is probably not what we want...
         LOG.info("deleting candidates with {}", candidateIds);
         List<Candidate> candidatesToDelete = candidateRepository.findAll(candidateIds);
         candidateRepository.delete(candidatesToDelete);

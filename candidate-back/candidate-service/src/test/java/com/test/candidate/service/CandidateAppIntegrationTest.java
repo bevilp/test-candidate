@@ -3,6 +3,7 @@ package com.test.candidate.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -22,13 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * candidate
+ * CandidateAppIntegrationTest
+ * <p>
+ * Please note that intake generation service has to be running for the tests to succeed
  *
  * @author Ben
  * @since 25/09/2015
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {CandidateServiceApp.class})
+@SpringApplicationConfiguration(classes = {CandidateServiceApp.class, MockIntakeServiceConfiguration.class})
 @WebAppConfiguration
 @Transactional
 public class CandidateAppIntegrationTest {
