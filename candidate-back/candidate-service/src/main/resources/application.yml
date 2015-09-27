@@ -1,8 +1,15 @@
 spring.jpa.hibernate.ddl_auto: none
 spring.jpa.hibernate.naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
 
-intakeServiceNotificationUrl: http://localhost:8100/intake-generation-service/notify
+spring:
+  application:
+     name: candidate-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
 
 server:
-        contextPath: /candidate-service
-        port: 8090
+  contextPath: /candidate-service
+  port: 8090
