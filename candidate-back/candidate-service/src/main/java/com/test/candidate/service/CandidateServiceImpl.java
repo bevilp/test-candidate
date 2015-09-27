@@ -35,9 +35,12 @@ public class CandidateServiceImpl implements CandidateService {
 
     private final CandidateRepository candidateRepository;
 
+    private final IntakeGenerationNotificationService intakeGenerationNotificationService;
+
     @Autowired
-    public CandidateServiceImpl(CandidateRepository candidateRepository) {
+    public CandidateServiceImpl(CandidateRepository candidateRepository, IntakeGenerationNotificationService intakeGenerationNotificationService) {
         this.candidateRepository = candidateRepository;
+        this.intakeGenerationNotificationService = intakeGenerationNotificationService;
     }
 
     @Override
@@ -70,6 +73,10 @@ public class CandidateServiceImpl implements CandidateService {
         Assert.notNull(candidateForm);
         Candidate candidate = new Candidate(candidateForm.getName(), candidateForm.isEnabled());
         candidate = candidateRepository.save(candidate);
+
+        // notify the intake generation service that a candidate has been created
+        intakeGenerationNotificationService.notify(candidate.getId());
+
         return CANDIDATE_TO_CANDIDATE_VO_MAPPER.apply(candidate);
     }
 

@@ -15,6 +15,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -32,7 +34,11 @@ public class CandidateServiceImplTest {
     @Mock
     private CandidateRepository candidateRepository;
 
+    @Mock
+    private IntakeGenerationNotificationService intakeGenerationNotificationService;
+
     private final List<Candidate> candidates = new ArrayList<>();
+
     {
         candidates.add(new Candidate("john", true));
         candidates.add(new Candidate("alex", true));
@@ -53,6 +59,7 @@ public class CandidateServiceImplTest {
     @Test
     public void insertCandidateTest() {
         when(candidateRepository.save(any(Candidate.class))).thenReturn(new Candidate("Ben", false));
+        verify(intakeGenerationNotificationService).notify(anyInt());
 
         CandidateDto candidateDto = candidateService.createCandidate(new CandidateForm("Ben", false));
 

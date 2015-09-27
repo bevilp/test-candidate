@@ -9,8 +9,9 @@ import org.springframework.context.annotation.Import;
  * Created by oleg on 07/08/15.
  */
 @SpringBootApplication
-@Import({PersistenceConfiguration.class})
+@Import({CandidateServiceAppConfiguration.class, PersistenceConfiguration.class})
 public class CandidateServiceApp {
+
     public static void main(String[] args) {
         SpringApplication.run(CandidateServiceApp.class, args);
     }
