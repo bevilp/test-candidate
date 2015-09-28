@@ -1,1 +1,25 @@
-<h1>Hi !</h1>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Enabled</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="candidate in candidateCtrl.candidates">
+            <tr>
+                <td>{{candidate.name}}</td>
+                <td>
+                    <div class="btn-group">
+                        <label class="btn btn-success" ng-model="candidate.enabled" btn-radio="true"
+                               uncheckable>Enabled</label>
+                        <label class="btn btn-success" ng-model="candidate.enabled" btn-radio="false"
+                               uncheckable>Disabled</label>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
