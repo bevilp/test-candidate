@@ -35,9 +35,10 @@ It has the advantage of being language agnostic and almost all developers are fa
 
 - Caching.
 - Define behavior and/or provide error handling in `candidate-service` when `Intake-generation-service` and/or `service-registration-server` are not running.
-- Improve unit and integration tests.
 - Security: Input escaping to prevent XSS attack prevention etc. SQL injection is not an issue as long as JPA is properly used.
-- Improve candidate delete operations consistency. `delete(id)` throws an exception when id does not exist whereas `deleteAll(List ids)` does not, non-existing ids are ignored. It has to be noted that this is the way `JpaRepository` works.
+- Improve candidate delete operations consistency. `delete(id)` throws an exception when id does not exist whereas `deleteAll(List ids)` does not; non-existing ids are ignored. It has to be noted that this is the way `JpaRepository` works.
+- i18n.
+- Improve unit and integration tests.
 
 ### Architecture:
 
