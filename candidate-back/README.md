@@ -2,7 +2,7 @@
 
 ## Usage
 
-I order to launch all the services, launch the following classes:
+In order to start all the services, launch the following classes:
 
 - `ServiceRegistrationServer.class`
 - `IntakeServiceApp.class`
