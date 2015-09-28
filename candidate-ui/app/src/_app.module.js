@@ -1,8 +1,8 @@
-(function(){
+(function () {
     'use strict';
 
     angular
-        .module('app', ['ngMockE2E', 'ui.router', 'ui.bootstrap','app.home', 'app.step'])
+        .module('app', ['ngMockE2E', 'ui.router', 'ui.bootstrap', 'app.home', 'app.step', 'app.candidate'])
         .config([
             '$stateProvider', '$urlRouterProvider',
             AppConfig
@@ -13,9 +13,9 @@
         // Route
         $urlRouterProvider.otherwise('/home');
 
-        $stateProvider.state('app',{
-            abstract    : true,
-            templateUrl : 'src/main.template.html'
+        $stateProvider.state('app', {
+            abstract: true,
+            templateUrl: 'src/main.template.html'
         });
     }
 
