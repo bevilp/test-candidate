@@ -66,6 +66,10 @@ public class CandidateAppIntegrationTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is("new user")))
                 .andExpect(jsonPath("$.enabled", is(true)));
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(4)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -78,6 +82,10 @@ public class CandidateAppIntegrationTest {
                 .andExpect(jsonPath("$.fieldErrors[0].field", is("name")))
                 .andExpect(jsonPath("$.fieldErrors[0].code", is("Size")))
                 .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is(tooLongName)));
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -89,6 +97,10 @@ public class CandidateAppIntegrationTest {
                 .andExpect(jsonPath("$.fieldErrors[0].field", is("name")))
                 .andExpect(jsonPath("$.fieldErrors[0].code", is("Size")))
                 .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is("")));
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -100,6 +112,10 @@ public class CandidateAppIntegrationTest {
                 .andExpect(jsonPath("$.fieldErrors[0].field", is("name")))
                 .andExpect(jsonPath("$.fieldErrors[0].code", is("NotNull")))
                 .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is("null")));
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -108,6 +124,10 @@ public class CandidateAppIntegrationTest {
                 .contentType(APPLICATION_JSON_UTF8)
                 .content("{\"name\":"))
                 .andExpect(status().isBadRequest());
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -201,6 +221,10 @@ public class CandidateAppIntegrationTest {
                 .andExpect(jsonPath("$.fieldErrors[0].field", is("ids")))
                 .andExpect(jsonPath("$.fieldErrors[0].code", is("NotNull")))
                 .andExpect(jsonPath("$.fieldErrors[0].rejectedValue", is("null")));
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -209,6 +233,10 @@ public class CandidateAppIntegrationTest {
                 .contentType(APPLICATION_JSON_UTF8)
                 .content("{\"id\""))
                 .andExpect(status().isBadRequest());
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -239,6 +267,10 @@ public class CandidateAppIntegrationTest {
         mockMvc.perform(delete("/candidate/xyz")
                 .contentType(APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -246,5 +278,9 @@ public class CandidateAppIntegrationTest {
         mockMvc.perform(delete("/candidate/10")
                 .contentType(APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
+
+        mockMvc.perform(get("/candidate"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(status().isOk());
     }
 }
