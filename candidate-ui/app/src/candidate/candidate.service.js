@@ -8,11 +8,12 @@
     CandidateService.$inject = ['$http', '$log'];
 
     function CandidateService($http, $log) {
-        return {
-            getAllCandidates: getAllCandidates
+        var service = {
+            getCandidates: getCandidates
         };
+        return service;
 
-        function getAllCandidates() {
+        function getCandidates() {
             return $http.get('/candidate')
                 .then(getCandidatesComplete)
                 .catch(getCandidatesFailed);
@@ -22,8 +23,9 @@
             }
 
             function getCandidatesFailed(error) {
-                $log.error(error);
+                logger.error('XHR Failed for getCandidates.' + error.data);
             }
         }
-    };
+    }
+
 })();

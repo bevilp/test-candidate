@@ -1,23 +1,23 @@
 (function () {
     'use strict';
 
-    angular
-        .module('app.candidate', ['ngSanitize'])
+    angular.module('app.candidate', [])
         .config([
-            '$stateProvider',
-            DashboardConfig
+            '$stateProvider', DashboardConfig
         ]);
 
     function DashboardConfig($stateProvider) {
+
         $stateProvider.state('app.candidate', {
             url: '/candidate',
             views: {
                 'main@app': {
                     templateUrl: 'src/candidate/candidate.html',
-                    controller: 'CandidateController as candidateCtrl',
+                    controller: 'CandidateController as ctrl'
                 }
             },
             data: {}
         });
     }
+
 })();

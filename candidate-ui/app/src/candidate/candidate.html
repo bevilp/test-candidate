@@ -1,25 +1,23 @@
 <div class="panel panel-default">
-    <div class="panel-body">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Enabled</th>
-            </tr>
-            </thead>
-            <tbody ng-repeat="candidate in candidateCtrl.candidates">
-            <tr>
-                <td>{{candidate.name}}</td>
-                <td>
-                    <div class="btn-group">
-                        <label class="btn btn-success" ng-model="candidate.enabled" btn-radio="true"
-                               uncheckable>Enabled</label>
-                        <label class="btn btn-success" ng-model="candidate.enabled" btn-radio="false"
-                               uncheckable>Disabled</label>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th ng-click="ctrl.sortBy('name'); ctrl.sortReverse()">
+                Name
+                <span ng-show="ctrl.sortColumn == 'name' && !ctrl.sortGrowing"
+                      class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-show="ctrl.sortColumn == 'name' && ctrl.sortGrowing"
+                      class="glyphicon glyphicon-chevron-up"></span>
+            </th>
+            <th>
+                Enabled
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="candidate in ctrl.candidates | orderBy:ctrl.sortColumn:ctrl.sortGrowing" candidate-row
+            candidate="candidate">
+        </tr>
+        </tbody>
+    </table>
 </div>
