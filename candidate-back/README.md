@@ -1,4 +1,52 @@
 # candidate-back
+
+## Usage
+
+In order to start all the services, launch the following classes:
+
+- `ServiceRegistrationServer.class`
+- `IntakeServiceApp.class`
+- `CandidateServiceApp.class`
+
+This is the ideal order of launch, but it is not mandatory. 
+`service-registration-server` has to be monitored at the following address http://localhost/1111 to check that all services are running. This can take a few minutes because the service registration retry is set to 30 seconds. When all services are registered, CANDIDATE-SERVICE and CANDIDATE-INTAKE-GENERATION-SERVICE should be visible in the Eureka dashboard.
+
+`candidate-service` can then be tested using a browser extension like RESTClient or Postman or by doing a simple curl. When adding a candidate, we can check that the `intake-generation-service` is properly called by checking its logs.
+
+## Result
+
+All steps have been implemented.
+
+### Bonus
+
+Bonus step has been implemented.
+
+`Intake-generation-service` is the service being notified of the creation of a candidate. It has been implemented as a simple REST service.
+
+`service-registration-server` is an Eureka based service registry allowing the `candidate-service` to find the `Intake-generation-service`.
+
+An alternate implementation could have been to use a message queue for the communication between the different services.
+This allows additional functionnalities and probably better throughput, however, without extra information on the requirements, a REST service is enough.
+It has the advantage of being language agnostic and almost all developers are familiar with HTTP.
+
+## Improvements
+
+### candidate-service
+
+- Caching.
+- Define behavior and/or provide error handling in `candidate-service` when `Intake-generation-service` and/or `service-registration-server` are not running.
+- Security: Input escaping to prevent XSS attack prevention etc. SQL injection is not an issue as long as JPA is properly used.
+- Improve candidate delete operations consistency. `delete(id)` throws an exception when id does not exist whereas `deleteAll(List ids)` does not; non-existing ids are ignored. It has to be noted that this is the way `JpaRepository` works.
+- i18n.
+- Improve unit and integration tests.
+
+### Architecture:
+
+- Depending on what the requirements are for `candidate-service` and `intake-generation-service`, we could go the full mile and totally decouple them by adding an API gateway in front. Tradeoff of additional operationnal costs has to be evaluated tho.
+
+--------------
+
+# candidate-back
 --------------
 ## Prerequisites
 ### Tools
