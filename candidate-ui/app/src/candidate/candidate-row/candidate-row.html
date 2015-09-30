@@ -1,9 +1,13 @@
 <tr>
-    <td>{{candidate.name}}</td>
+    <td>{{ctrl.candidate.name}}</td>
     <td>
         <div class="btn-group">
-            <label class="btn btn-success" ng-model="candidate.enabled" btn-radio="true" uncheckable>Enable</label>
-            <label class="btn btn-success" ng-model="candidate.enabled" btn-radio="false" uncheckable>Disable</label>
+            <label class="btn btn-success" ng-model="ctrl.enabledCheckbox" btn-radio="true" ng-change="ctrl.toggle()">
+                Enabled
+            </label>
+            <label class="btn btn-success" ng-model="ctrl.enabledCheckbox" btn-radio="false" ng-change="ctrl.toggle()">
+                Disabled
+            </label>
         </div>
     </td>
 </tr>
