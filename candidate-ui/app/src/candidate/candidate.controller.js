@@ -20,9 +20,9 @@
         self.sortColumn = 'name'; // default sort by name
         self.sortGrowing = true;  // default sort order
 
-        populate();
+        activate();
 
-        function populate() {
+        function activate() {
             return getCandidates().then(function () {
                 $log.info('Got candidates');
             });

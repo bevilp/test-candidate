@@ -1,0 +1,20 @@
+<form name="addCandidateForm" class="form-inline" novalidate
+      ng-submit="addCandidateForm.$valid && ctrl.addCandidate(ctrl.candidateName)">
+
+    <div class="form-group"
+         ng-class="{ 'has-error': addCandidateForm.name.$touched && addCandidateForm.name.$invalid }">
+        <input type="text" class="form-control" name="name" placeholder="Name"
+               ng-model="ctrl.candidateName"
+               required
+               ng-minlength="1"
+               ng-maxlength="30">
+    </div>
+
+    <button type="submit" class="btn btn-default">Add</button>
+
+    <div class="help-block" ng-messages="addCandidateForm.name.$error" ng-if="addCandidateForm.name.$touched">
+        <p ng-message="required">Candidate name is required</p>
+        <p ng-message="minlength">Candidate name is too short</p>
+        <p ng-message="maxlength">Candidate name is too long</p>
+    </div>
+</form>
