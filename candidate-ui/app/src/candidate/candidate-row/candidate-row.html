@@ -1,4 +1,9 @@
 <tr>
+    <td>
+        <input type="checkbox"
+               ng-model="ctrl.deleteCheckbox"
+               ng-change="ctrl.selectForDelete()">
+    </td>
     <td>{{ctrl.candidate.name}}</td>
     <td>
         <div class="btn-group">

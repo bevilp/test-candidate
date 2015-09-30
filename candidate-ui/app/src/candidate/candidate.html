@@ -2,6 +2,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th></th>
             <th ng-click="ctrl.sortBy('name'); ctrl.sortReverse()">
                 Name
                 <span ng-show="ctrl.sortColumn == 'name' && !ctrl.sortGrowing"
@@ -16,11 +17,13 @@
         </thead>
         <tbody>
         <tr ng-repeat="candidate in ctrl.candidates | orderBy:ctrl.sortColumn:ctrl.sortGrowing" candidate-row
-            candidate="candidate">
+            candidate="candidate"
+            candidate-id-list="ctrl.candidateIdList">
         </tr>
         </tbody>
     </table>
-
+    <candidate-delete-form candidate-id-list="ctrl.candidateIdList"></candidate-delete-form>
     <candidate-add-form candidates="ctrl.candidates"></candidate-add-form>
+
 
 </div>

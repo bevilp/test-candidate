@@ -14,7 +14,10 @@
             controller: CandidateRowController,
             controllerAs: 'ctrl',
             restrict: 'A',
-            scope: {candidate: '='},
+            scope: {
+                candidate: '=',
+                candidateIdList: "="
+            },
             templateUrl: './src/candidate/candidate-row/candidate-row.html'
         };
     }
@@ -23,7 +26,10 @@
         var self = this;
 
         self.enabledCheckbox = self.candidate.enabled;
+        self.deleteCheckbox = false;
+
         self.toggle = toggle;
+        self.selectForDelete = selectForDelete;
 
         function toggle() {
             // save previous state in case update fails
@@ -39,6 +45,16 @@
                 self.candidate.enabled = previousValue;
                 self.enabledCheckbox = previousValue;
             });
+        }
+
+        function selectForDelete() {
+            if (self.deleteCheckbox) {
+                self.candidateIdList.push(self.candidate.id);
+                $log.debug(self.candidateIdList);
+            } else {
+                self.candidateIdList.splice(self.candidateIdList.indexOf(self.candidate.id), 1);
+                $log.debug(self.candidateIdList);
+            }
         }
     }
 })();

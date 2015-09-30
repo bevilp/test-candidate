@@ -15,6 +15,7 @@
         self.sortReverse = sortReverse;
 
         self.candidates = [];
+        self.candidateIdList = [];
 
         // sorting variables
         self.sortColumn = 'name'; // default sort by name
