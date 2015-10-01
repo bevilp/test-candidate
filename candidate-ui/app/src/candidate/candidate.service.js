@@ -12,7 +12,8 @@
         var service = {
             getCandidates: getCandidates,
             updateCandidate: updateCandidate,
-            addCandidate: addCandidate
+            addCandidate: addCandidate,
+            deleteCandidates: deleteCandidates
         };
         return service;
 
@@ -26,7 +27,7 @@
             }
 
             function getCandidatesFailed(error) {
-                $log.error('XHR Failed for getCandidates.' + error.data);
+                $log.error('Failed to retrieve candidates due to ' + error.data);
             }
         }
 
@@ -35,14 +36,12 @@
                 .then(updateCandidateComplete)
                 .catch(updateCandidateFailed);
             function updateCandidateComplete(response) {
-                $log.debug('candidate updated');
-                $log.debug(response);
+                $log.debug('candidate updated ', response);
                 return response.data;
             }
 
             function updateCandidateFailed(error) {
-                $log.error('XHR Failed for updateCandidate.');
-                $log.error(error)
+                $log.error('Failed to update candidate due to ', error);
                 return $q.reject(error);
             }
         }
@@ -54,15 +53,31 @@
                 .catch(addCandidateCompleteFailed);
 
             function addCandidateComplete(response) {
-                $log.debug('Candidate Added ' + response.data);
+                $log.debug('Candidate Added ', response.data);
                 return response.data;
             }
 
             function addCandidateCompleteFailed(error) {
-                $log.error('XHR Failed for updateCandidate.');
-                $log.error(error)
+                $log.error('Failed to add candidate due to ', error);
                 return $q.reject(error);
             }
+        }
+
+        function deleteCandidates(candidateIds) {
+            return $http.post(_candidateUrl + '/delete', candidateIds)
+                .then(deleteCandidatesSuccess)
+                .catch(deleteCandidatesFailed);
+
+            function deleteCandidatesSuccess(response) {
+                $log.debug('Candidates deleted ', response.data);
+                return response.data;
+            }
+
+            function deleteCandidatesFailed(error) {
+                $log.error('Failed to delete candidates due to ', error);
+                return $q.reject(error);
+            }
+
         }
     }
 

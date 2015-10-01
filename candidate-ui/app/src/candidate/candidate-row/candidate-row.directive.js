@@ -16,7 +16,6 @@
             restrict: 'A',
             scope: {
                 candidate: '=',
-                candidateIdList: "="
             },
             templateUrl: './src/candidate/candidate-row/candidate-row.html'
         };
@@ -29,7 +28,6 @@
         self.deleteCheckbox = false;
 
         self.toggle = toggle;
-        self.selectForDelete = selectForDelete;
 
         function toggle() {
             // save previous state in case update fails
@@ -38,23 +36,13 @@
 
             CandidateService.updateCandidate(self.candidate).then(function (response) {
                 // success
-                $log.debug('update succeeded');
-            }, function () {
+                $log.debug('successfully updated candidate ', response);
+            }, function (error) {
+                $log.error('failed to update candidate due to ', error);
                 // update failed. Restore previous state
-                $log.error('update failed');
                 self.candidate.enabled = previousValue;
                 self.enabledCheckbox = previousValue;
             });
-        }
-
-        function selectForDelete() {
-            if (self.deleteCheckbox) {
-                self.candidateIdList.push(self.candidate.id);
-                $log.debug(self.candidateIdList);
-            } else {
-                self.candidateIdList.splice(self.candidateIdList.indexOf(self.candidate.id), 1);
-                $log.debug(self.candidateIdList);
-            }
         }
     }
 })();

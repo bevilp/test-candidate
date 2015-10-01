@@ -30,13 +30,10 @@
             self.formSubmitted = true;
 
             CandidateService.addCandidate({name: name, enabled: true}).then(function (result) {
-                //added
-                $log.debug("Successfully added candidate " + result);
-                $log.debug(result);
+                $log.debug("Successfully added candidate ", result);
                 self.candidates.push(result);
-            }, function () {
-                $log.debug("Kaput");
-                //error
+            }, function (error) {
+                $log.error("Could not add candidate du to ", error);
             })
         }
     }
