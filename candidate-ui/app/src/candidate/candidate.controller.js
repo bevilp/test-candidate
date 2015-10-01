@@ -27,7 +27,7 @@
             return getCandidates().then(function () {
                 $log.info('Got candidates');
             });
-        };
+        }
 
         function getCandidates() {
             return CandidateService.getCandidates()

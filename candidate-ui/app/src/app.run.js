@@ -77,5 +77,4 @@
         $httpBackend.whenGET(/.*/).passThrough();
     }
 
-
 })();

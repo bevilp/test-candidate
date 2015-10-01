@@ -15,7 +15,7 @@
             controllerAs: 'ctrl',
             restrict: 'A',
             scope: {
-                candidate: '=',
+                candidate: '='
             },
             templateUrl: './src/candidate/candidate-row/candidate-row.html'
         };

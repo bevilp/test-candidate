@@ -77,7 +77,6 @@
                 $log.error('Failed to delete candidates due to ', error);
                 return $q.reject(error);
             }
-
         }
     }
 
