@@ -1,11 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module('app.candidate').directive('candidateRow', [
-        CandidateRow
-    ]);
-
-    CandidateRowController.$inject = ['CandidateService', '$log'];
+    angular.module('app.candidate')
+        .directive('candidateRow', [
+            CandidateRow
+        ]);
 
     //directive
     function CandidateRow() {
@@ -20,6 +19,8 @@
             templateUrl: './src/candidate/candidate-row/candidate-row.html'
         };
     }
+
+    CandidateRowController.$inject = ['CandidateService', '$log'];
 
     function CandidateRowController(CandidateService, $log) {
         var self = this;

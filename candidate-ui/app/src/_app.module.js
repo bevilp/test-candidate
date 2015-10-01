@@ -3,10 +3,9 @@
 
     angular
         .module('app', ['ngMockE2E', 'ui.router', 'ui.bootstrap', 'app.home', 'app.step', 'app.candidate', 'ngMessages'])
-        .config([
-            '$stateProvider', '$urlRouterProvider',
-            AppConfig
-        ]);
+        .config(AppConfig);
+
+    AppConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
     function AppConfig($stateProvider, $urlRouterProvider) {
 

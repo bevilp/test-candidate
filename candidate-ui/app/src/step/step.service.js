@@ -1,4 +1,4 @@
-(function(){
+(function () {
     'use strict';
 
     angular
@@ -8,13 +8,14 @@
             StepService
         ]);
 
+    StepService.$inect = ['$http'];
 
     function StepService($http) {
         var self = this;
 
         this.get = get;
 
-        function get(){
+        function get() {
             return $http.get('/step');
         }
 

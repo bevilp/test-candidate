@@ -1,10 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('app.candidate', [])
-        .config([
-            '$stateProvider', DashboardConfig
-        ]);
+    angular
+        .module('app.candidate', [])
+        .config(DashboardConfig);
+
+    DashboardConfig.$inject = ['$stateProvider'];
 
     function DashboardConfig($stateProvider) {
 
