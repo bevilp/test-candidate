@@ -3,9 +3,7 @@
 
     angular
         .module('app.step')
-        .controller('StepsController', [
-            StepsController
-        ]);
+        .controller('StepsController', StepsController);
 
     StepsController.$inject = ['StepService'];
 
@@ -13,6 +11,7 @@
         var self = this;
 
         self.steps = [];
+
         StepService.get().then(function (response) {
             self.steps = response.data;
         });

@@ -3,22 +3,19 @@
 
     angular
         .module('app.step')
-        .service('StepService', [
-            '$http',
-            StepService
-        ]);
+        .service('StepService', StepService);
 
-    StepService.$inect = ['$http'];
+    StepService.$inject = ['$http'];
 
     function StepService($http) {
         var self = this;
 
-        this.get = get;
+        self.get = get;
 
         function get() {
             return $http.get('/step');
         }
-
     }
 
 })();
+
