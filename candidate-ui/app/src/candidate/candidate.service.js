@@ -5,10 +5,10 @@
         .module('app.candidate')
         .factory('CandidateService', CandidateService);
 
-    CandidateService.$inject = ['$http', '$log', '$q'];
+    CandidateService.$inject = ['$http', '$log', '$q', 'appConfig'];
 
-    function CandidateService($http, $log, $q) {
-        var _candidateUrl = '/candidate';
+    function CandidateService($http, $log, $q, appConfig) {
+        var _candidateUrl = appConfig.backend + '/candidate';
         var service = {
             getCandidates: getCandidates,
             updateCandidate: updateCandidate,
