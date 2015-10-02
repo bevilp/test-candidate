@@ -60,7 +60,7 @@
         });
 
         //delete a list of candidate
-        $httpBackend.whenPOST('/candidate/delete').respond(function (method, url, data) {
+        $httpBackend.whenDELETE('/candidate').respond(function (method, url, data) {
             $log.debug(data);
             var ids = angular.fromJson(data);
 
@@ -75,6 +75,10 @@
 
         //
         $httpBackend.whenGET(/.*/).passThrough();
+
+        $httpBackend.whenPOST(/.*/).passThrough();
+        $httpBackend.whenPUT(/.*/).passThrough();
+        $httpBackend.whenDELETE(/.*/).passThrough();
     }
 
 })();

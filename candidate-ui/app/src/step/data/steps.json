@@ -30,13 +30,13 @@
 			"description": "The goal is to enabled or disable one candidate in the list",
 			"tasks": [
 				"Switch the button style when the user click on the toggle button enabled/disable",
-				"Update the candidate by calling the endpoint <strong>PUT /candidate/{id} requestBody : {enabled:true/false}</strong>"
+				"Update the candidate by calling the endpoint <strong>PUT /candidate/{id} requestBody : {name:'name', enabled:true/false}</strong>"
 			]
 		},
 		"BACK" : {
 			"description": "Create a service/endpoint to update a candidate",
 			"tasks": [
-				"Add a new endpoint : <strong>PUT /candidate/{id} requestBody : {enabled:true/false}</strong>. <strong>Test It !</strong>",
+				"Add a new endpoint : <strong>PUT /candidate/{id} requestBody : {name:'name', enabled:true/false}</strong>. <strong>Test It !</strong>",
 				"Update the corresponding candidate in the database"
 			]
 		}
@@ -67,14 +67,14 @@
 			"tasks": [
 				"Add a column with a checkbox for on each line",
 				"Add a button to delete the selected candidates.<br><img src='assets/step4.png' width='200px' />",
-				"Delete the selected candidates by calling the endpoint <strong>POST /candidate/delete requestBody : [1,6]</strong>. The list of ids shall be sent to the endpoint",
+				"Delete the selected candidates by calling the endpoint <strong>DELETE /candidate requestBody : {ids:[1,6]}</strong>. The list of ids shall be sent to the endpoint",
 				"The list shall be synchronized"
 			]
 		},
 		"BACK" : {
 			"description": "Create an service/endpoint to deelete a list of candidates",
 			"tasks": [
-				"Add a new endpoint : <strong>POST /candidate/delete requestBody : [1,6]</strong>. <strong>Test It !</strong>",
+				"Add a new endpoint : <strong>DELETE /candidate requestBody : {ids:[1,6]}</strong>. <strong>Test It !</strong>",
 				"Delete the candidates corresponding to the ids in the database"
 			]
 		}
