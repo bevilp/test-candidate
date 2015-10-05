@@ -1,3 +1,15 @@
+# Exercise results
+
+All steps have been implemented.
+
+## possible improvements
+
+- Add a gulp based build
+- Improve look and feel
+- Improve logging and error handling
+- Add tests
+- Consider the usage of React instead of Angularjs
+
 # Candidate
 
 
